@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "egx"
+version = "0.1.0"
+description = "A Python library for fetching index data from the Egyptian Exchange (EGX)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Abdelrahman Ahmed", email = "abdelrahman.m.ahmed@proton.me"}
+]
+dependencies = [
+    "requests",
+    "pandas",
+]
+
+[project.urls]
+Homepage = "https://github.com/abed8080/egx"

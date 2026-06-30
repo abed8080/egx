@@ -1,10 +1,10 @@
 import pytest
 import pandas as pd
 from unittest.mock import patch, MagicMock
-from egx import INDICES, get_index_data
+from egx import get_supported_indices, get_index_data
 
 
-@pytest.mark.parametrize("index_name", list(INDICES)[:2])
+@pytest.mark.parametrize("index_name", list(get_supported_indices())[:2])
 @patch("requests.get")
 def test_get_index_data_success(mock_get, index_name):
     # Mock successful API response

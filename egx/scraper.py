@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-BASE_URL = "https://www.egx.com.eg/WebService.asmx/getIndexChartData"
+BASE_URL = "https://www.egx.com.eg/WebService.asmx"
 
 INDICES = {
     "EGX30",
@@ -19,9 +19,13 @@ HEADERS = {
 }
 
 
+def get_supported_indices() -> set:
+    """Return the set of supported EGX indices."""
+    return set(INDICES)
+
+
 def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
-    """
-    Fetches historical data for a given index from the Egyptian Exchange (EGX).
+    """Fetch historical data for a given EGX index.
 
     Args:
         index: The name of the index (e.g., 'EGX30').
@@ -29,6 +33,10 @@ def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
 
     Returns:
         A pandas DataFrame with 'date' and 'value' columns.
+
+    Raises:
+        ValueError: If the provided index is not in the set of supported indices.
+        requests.exceptions.RequestException: If the request fails.
     """
     # Validate index name
     if index not in INDICES:
@@ -36,7 +44,7 @@ def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
 
     params = {"index": index, "period": period, "gtk": 0}
 
-    response = requests.get(BASE_URL, params=params, headers=HEADERS)
+    response = requests.get(f"{BASE_URL}/getIndexChartData", params=params, headers=HEADERS)
     response.raise_for_status()
 
     data = response.json()

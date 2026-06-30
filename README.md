@@ -1,6 +1,6 @@
 # egx
 
-A Python library for fetching index data from the Egyptian Exchange (EGX).
+An unofficial API wrapper for the Egyptian Exchange that lets you fetch historical and intraday index data.
 
 ## Installation
 
@@ -16,7 +16,7 @@ pip install egx
 import egx
 
 # List all available indices
-print(egx.INDICES)
+print(egx.get_supported_indices())
 # {'EGX30_CAP', 'EGXVolatility', 'EGX30_TR', 'EGX100_EWI', 'EGX30', 'EGX70_EWI', 'EGX_33_Shariah'}
 
 # Fetch EGX30 data for the current day

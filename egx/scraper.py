@@ -44,7 +44,9 @@ def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
 
     params = {"index": index, "period": period, "gtk": 0}
 
-    response = requests.get(f"{BASE_URL}/getIndexChartData", params=params, headers=HEADERS)
+    response = requests.get(
+        f"{BASE_URL}/getIndexChartData", params=params, headers=HEADERS
+    )
     response.raise_for_status()
 
     data = response.json()

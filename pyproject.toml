@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "egx"
-version = "0.2.0"
+version = "0.3.0"
 description = "An unofficial API wrapper for the Egyptian Exchange that lets you fetch historical and intraday index data."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -19,3 +19,6 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/abed8080/egx"
+
+[tool.ruff.lint]
+extend-select = ["I"]

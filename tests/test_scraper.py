@@ -19,9 +19,9 @@ def test_get_index_data_success(mock_get, index_name):
     df = get_index_data(index_name)
 
     assert isinstance(df, pd.DataFrame)
-    assert list(df.columns) == ["date", "value"]
+    assert list(df.columns) == ["datetime", "value"]
     assert len(df) == 2
-    assert pd.api.types.is_datetime64_any_dtype(df["date"])
+    assert pd.api.types.is_datetime64_any_dtype(df["datetime"])
     assert df["value"].iloc[0] == 25000.5
 
 
@@ -36,7 +36,7 @@ def test_get_index_data_empty_response(mock_get):
 
     assert isinstance(df, pd.DataFrame)
     assert df.empty
-    assert list(df.columns) == ["date", "value"]
+    assert list(df.columns) == ["datetime", "value"]
 
 
 def test_invalid_index_raises_error():

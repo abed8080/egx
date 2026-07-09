@@ -1,5 +1,5 @@
-import requests
 import pandas as pd
+import requests
 
 BASE_URL = "https://www.egx.com.eg/WebService.asmx"
 
@@ -29,10 +29,18 @@ def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
 
     Args:
         index: The name of the index (e.g., 'EGX30').
-        period: Time period in days. Defaults to 0 (current day).
+        period: Number of calendar days to look back from. Only trading
+            days within that window are returned, so the number of rows
+            may be less than `period` (e.g. weekends/holidays are
+            excluded). Defaults to 0, which returns intraday data for
+            the current trading day instead of historical daily data.
 
     Returns:
-        A pandas DataFrame with 'date' and 'value' columns.
+        A pandas DataFrame. When period=0, contains intraday
+        observations for today, or an empty
+        DataFrame if the market is closed today (e.g. weekend or
+        holiday) or has not yet opened. When period > 0, contains one
+        row per trading day.
 
     Raises:
         ValueError: If the provided index is not in the set of supported indices.
@@ -40,7 +48,9 @@ def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
     """
     # Validate index name
     if index not in INDICES:
-        raise ValueError(f"Invalid index: {index}. Choose from {INDICES}")
+        raise ValueError(
+            f"Invalid index: {index}. See get_supported_indices() for valid options."
+        )
 
     params = {"index": index, "period": period, "gtk": 0}
 
@@ -51,17 +61,17 @@ def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
 
     data = response.json()
     if not data:
-        return pd.DataFrame(columns=["date", "value"])
+        return pd.DataFrame(columns=["datetime", "value"])
 
     df = pd.DataFrame(data)
 
     # Rename columns to more user-friendly names
-    df = df.rename(columns={"CDAY": "date", "INDEX_VALUE": "value"})
+    df = df.rename(columns={"CDAY": "datetime", "INDEX_VALUE": "value"})
 
     # Convert date to datetime objects
-    df["date"] = pd.to_datetime(df["date"])
+    df["datetime"] = pd.to_datetime(df["datetime"])
 
     # Ensure data is sorted by date ascending
-    df = df.sort_values("date").reset_index(drop=True)
+    df = df.sort_values("datetime").reset_index(drop=True)
 
     return df

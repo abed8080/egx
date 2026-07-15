@@ -20,15 +20,15 @@ pip install egx
 ```python
 import egx
 
-# List all available indices
+# List all indices this library supports
 print(egx.get_supported_indices())
 # {'EGX30_CAP', 'EGXVolatility', 'EGX30_TR', 'EGX100_EWI', 'EGX30', 'EGX70_EWI', 'EGX_33_Shariah'}
 
-# Fetch EGX30 data for the current day
+# Fetch intraday data for EGX30 for the current trading day
 df = egx.get_index_data("EGX30")
 print(df.head())
 
-# Fetch EGX30 data for the last year
+# Fetch historical data for EGX30 over the last 365 calendar days
 df_1y = egx.get_index_data("EGX30", period=365)
 print(df_1y.head())
 ```

@@ -25,7 +25,7 @@ def get_supported_indices() -> set:
 
 
 def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
-    """Fetch historical data for a given EGX index.
+    """Fetch data for a given EGX index.
 
     Args:
         index: The name of the index (e.g., 'EGX30').

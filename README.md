@@ -24,11 +24,11 @@ import egx
 print(egx.get_supported_indices())
 # {'EGX30_CAP', 'EGXVolatility', 'EGX30_TR', 'EGX100_EWI', 'EGX30', 'EGX70_EWI', 'EGX_33_Shariah'}
 
-# Fetch intraday data for EGX30 for the current trading day
+# Fetch intraday data for the latest trading day
 df = egx.get_index_data("EGX30")
 print(df.head())
 
-# Fetch historical data for EGX30 over the last 365 calendar days
+# Fetch historical daily data for the last year
 df_1y = egx.get_index_data("EGX30", period=365)
 print(df_1y.head())
 ```

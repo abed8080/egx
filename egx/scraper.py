@@ -33,7 +33,7 @@ def get_index_data(index: str, period: int = 0) -> pd.DataFrame:
             days within that window are returned, so the number of rows
             may be less than `period` (e.g. weekends/holidays are
             excluded). Defaults to 0, which returns intraday data for
-            the current trading day instead of historical daily data.
+            the latest trading day instead of historical daily data.
 
     Returns:
         A pandas DataFrame. When period=0, contains intraday
